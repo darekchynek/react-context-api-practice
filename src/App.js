@@ -26,10 +26,15 @@ class App extends Component {
     } else {
       fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then(res => res.json())
-      .then(res => this.setState({pokemonInfo: [
-        ...this.state.pokemonInfo,
-        res
-      ]}))
+      .then(res => {
+        if (this.state.pokemonInfo.some(poke => poke.name === res.name)) {
+          console.log('includes 2')
+        } else {
+          this.setState({pokemonInfo: [
+            ...this.state.pokemonInfo,
+            res
+          ]})
+        }})
     }
   }
 
